@@ -307,31 +307,81 @@
 
 
         genBtn.addEventListener('click', async () => {
-    const prompt = input.value.trim();
-    if (!prompt) {
-        input.focus();
-        return;
-    }
+            const prompt = input.value.trim();
+            if (!prompt) {
+                input.focus();
+                return;
+            }
 
-    try {
-        const res = await fetch("/generate_prompt", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt })
+            try {
+                document.body.style.cursor = 'wait';
+                genBtn.disabled = true;
+                genBtn.textContent = 'Generating...';
+
+                const res = await fetch("/generate_design", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ prompt })
+                });
+
+                const data = await res.json();
+                if (data.error) {
+                    showError("Error: " + data.error);
+                } else {
+                    showResults(data);
+                }
+            } catch (err) {
+                showError("Request failed: " + err.message);
+            } finally {
+                document.body.style.cursor = 'default';
+                genBtn.disabled = false;
+                genBtn.textContent = 'Generate';
+            }
         });
 
-        const data = await res.json();
-        if (data.error) {
-            document.write("Error: " + data.error);
-        } else {
-            console.log("Refined Prompt:", data.response);
-            alert("Refined Prompt: " + data.response);
-
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.style.color = '#ff3366';
+            errorDiv.style.padding = '12px';
+            errorDiv.style.marginTop = '12px';
+            errorDiv.style.background = 'rgba(255,51,102,0.1)';
+            errorDiv.style.borderRadius = '8px';
+            errorDiv.textContent = message;
+            document.querySelector('.prompt-box').appendChild(errorDiv);
+            setTimeout(() => errorDiv.remove(), 5000);
         }
-    } catch (err) {
-        document.write("Request failed: " + err.message);
-    }
-});
+
+        function showResults(data) {
+            const resultsDiv = document.createElement('div');
+            resultsDiv.className = 'results-container';
+            resultsDiv.style.marginTop = '20px';
+            resultsDiv.style.padding = '20px';
+            resultsDiv.style.background = 'rgba(0,0,0,0.35)';
+            resultsDiv.style.borderRadius = '12px';
+            resultsDiv.style.border = '1px solid rgba(255,255,255,0.04)';
+            resultsDiv.style.maxHeight = '500px';
+            resultsDiv.style.overflowY = 'auto';
+
+            resultsDiv.innerHTML = `
+                <div style="margin-bottom:16px">
+                    <h3 style="color:var(--accent-2);margin-bottom:8px">Refined Prompt</h3>
+                    <p style="color:rgba(255,255,255,0.9)">${data.refined_prompt}</p>
+                </div>
+                <div>
+                    <h3 style="color:var(--accent-1);margin-bottom:8px">Design Plan</h3>
+                    <pre style="color:rgba(255,255,255,0.9);white-space:pre-wrap;font-family:inherit">${data.design_plan}</pre>
+                </div>
+            `;
+
+            // Remove any existing results
+            const existingResults = document.querySelector('.results-container');
+            if (existingResults) {
+                existingResults.remove();
+            }
+
+            document.querySelector('.prompt-box').appendChild(resultsDiv);
+        }
 
     </script>
 </body>

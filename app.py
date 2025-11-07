@@ -1,12 +1,14 @@
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for
 import firebase_admin
 from firebase_admin import credentials, auth
-import promptagent
-cred = credentials.Certificate("alixer-352b3-firebase-adminsdk-fbsvc-b9d0ad5897.json")
+import designagent
+import config
+
+cred = credentials.Certificate(config.credential)
 firebase_admin.initialize_app(cred)
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  
+app.secret_key = config.security_key 
 
 @app.route("/")
 def home():
@@ -51,36 +53,19 @@ def protected():
 
 
 
-@app.route("/generate_prompt", methods=["POST"])
-def generate_prompt():
+@app.route("/generate_design", methods=["POST"])
+def generate_design():
     data = request.get_json()
     user_input = data.get("prompt", "").strip()
 
     if not user_input:
         return jsonify({"error": "Prompt cannot be empty"}), 400
 
-    system_prompt = (
-        "You are a professional English prompt refiner. "
-        "Your task is to take the user's raw message and rewrite it into a clear, "
-        "grammatically correct, and well-structured prompt for a design generation agent. "
-        "Do not include formatting symbols such as asterisks, hashtags, or markdown. "
-        "Do not make any design or layout suggestions yourself. "
-        "Simply transform the user's message into a polished, unambiguous prompt "
-        "that the design agent can easily interpret. "
-        "At the end of the prompt, include this instruction exactly: "
-        "'Generate 4 design variations based on this prompt.'"
-    )
-
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_input}
-    ]
-
-    response, error = promptagent.call_ai_api(messages)
+    result, error = designagent.process_design_request(user_input)
 
     if error:
         return jsonify({"error": error}), 500
-    return jsonify({"response": response})
+    return jsonify(result)
 
 
 if __name__ == "__main__":

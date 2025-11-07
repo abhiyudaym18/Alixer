@@ -1,7 +1,7 @@
 import requests
 import config as config
 import json
-import desginagent
+import designagent
 
 
 OPENROUTER_API_KEY = config.OPENROUTER_API_KEY
