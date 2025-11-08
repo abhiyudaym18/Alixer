@@ -242,6 +242,25 @@
 
             <div class="prompt-actions">
                 <button id="generateBtn" class="btn btn-primary" type="button">Generate</button>
+                <button id="showDesignBtn" class="btn btn-secondary" type="button" style="display:none">Show Design Plan</button>
+            </div>
+
+            <div id="resultsArea" style="margin-top:20px;display:none">
+                <div id="refinedPromptSection">
+                    <h3 style="color:var(--accent-2);margin-bottom:8px">Refined Prompt</h3>
+                    <p id="refinedPromptText" style="color:rgba(255,255,255,0.9)"></p>
+                </div>
+                
+                <div id="designPlanSection" style="display:none;margin-top:20px">
+                    <h3 style="color:var(--accent-1);margin-bottom:8px">Design Plan</h3>
+                    <pre id="designPlanText" style="color:rgba(255,255,255,0.9);white-space:pre-wrap;font-family:inherit"></pre>
+                </div>
+
+                <div id="previewSection" style="margin-top:20px">
+                    <a id="previewLink" class="btn btn-primary" target="_blank" style="text-decoration:none;display:inline-block">
+                        Open Generated Page ↗
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -306,6 +325,16 @@
         });
 
 
+        const showDesignBtn = document.getElementById('showDesignBtn');
+        const resultsArea = document.getElementById('resultsArea');
+        const refinedPromptText = document.getElementById('refinedPromptText');
+        const designPlanSection = document.getElementById('designPlanSection');
+        const designPlanText = document.getElementById('designPlanText');
+        const previewLink = document.getElementById('previewLink');
+        
+        // Store design data globally
+        let currentDesignPlan = '';
+        
         genBtn.addEventListener('click', async () => {
             const prompt = input.value.trim();
             if (!prompt) {
@@ -314,10 +343,13 @@
             }
 
             try {
+                // Reset UI
                 document.body.style.cursor = 'wait';
                 genBtn.disabled = true;
                 genBtn.textContent = 'Generating...';
-
+                showDesignBtn.style.display = 'none';
+                resultsArea.style.display = 'none';
+                
                 const res = await fetch("/generate_design", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -339,6 +371,12 @@
             }
         });
 
+        showDesignBtn.addEventListener('click', () => {
+            const isShowing = designPlanSection.style.display === 'block';
+            designPlanSection.style.display = isShowing ? 'none' : 'block';
+            showDesignBtn.textContent = isShowing ? 'Show Design Plan' : 'Hide Design Plan';
+        });
+
         function showError(message) {
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
@@ -353,34 +391,25 @@
         }
 
         function showResults(data) {
-            const resultsDiv = document.createElement('div');
-            resultsDiv.className = 'results-container';
-            resultsDiv.style.marginTop = '20px';
-            resultsDiv.style.padding = '20px';
-            resultsDiv.style.background = 'rgba(0,0,0,0.35)';
-            resultsDiv.style.borderRadius = '12px';
-            resultsDiv.style.border = '1px solid rgba(255,255,255,0.04)';
-            resultsDiv.style.maxHeight = '500px';
-            resultsDiv.style.overflowY = 'auto';
-
-            resultsDiv.innerHTML = `
-                <div style="margin-bottom:16px">
-                    <h3 style="color:var(--accent-2);margin-bottom:8px">Refined Prompt</h3>
-                    <p style="color:rgba(255,255,255,0.9)">${data.refined_prompt}</p>
-                </div>
-                <div>
-                    <h3 style="color:var(--accent-1);margin-bottom:8px">Design Plan</h3>
-                    <pre style="color:rgba(255,255,255,0.9);white-space:pre-wrap;font-family:inherit">${data.design_plan}</pre>
-                </div>
-            `;
-
-            // Remove any existing results
-            const existingResults = document.querySelector('.results-container');
-            if (existingResults) {
-                existingResults.remove();
-            }
-
-            document.querySelector('.prompt-box').appendChild(resultsDiv);
+            // Store design plan
+            currentDesignPlan = data.design_plan;
+            
+            // Update refined prompt
+            refinedPromptText.textContent = data.refined_prompt;
+            
+            // Update design plan
+            designPlanText.textContent = data.design_plan;
+            
+            // Update preview link
+            previewLink.href = data.generated_url;
+            
+            // Show UI elements
+            resultsArea.style.display = 'block';
+            showDesignBtn.style.display = 'inline-block';
+            
+            // Reset design plan visibility
+            designPlanSection.style.display = 'none';
+            showDesignBtn.textContent = 'Show Design Plan';
         }
 
     </script>

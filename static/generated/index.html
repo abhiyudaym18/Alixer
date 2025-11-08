@@ -1,0 +1,359 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTech Landing Page</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F5F5F5;
+            color: #212121;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(0,0,0,.05);
+        }
+        .header .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A73E8;
+        }
+        .header .nav {
+            display: flex;
+            gap: 20px;
+        }
+        .header .nav a {
+            color: #212121;
+            text-decoration: none;
+            padding: 12px;
+            transition: color 0.3s;
+        }
+        .header .nav a:hover {
+            color: #1A73E8;
+        }
+        .header .hamburger {
+            display: none;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .header .hamburger:hover {
+            transform: rotate(45deg);
+        }
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 60px 0;
+            background-color: #FFFFFF;
+            box-shadow: 0 4px 16px rgba(0,0,0,.1);
+        }
+        .hero .text {
+            flex: 1;
+            padding-right: 20px;
+        }
+        .hero .text h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .hero .text h2 {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.25;
+            margin-top: 10px;
+        }
+        .hero .text .cta {
+            display: inline-block;
+            margin-top: 20px;
+            background: #1A73E8;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+        .hero .text .cta:hover {
+            background: #FFC107;
+            color: #212121;
+        }
+        .hero .illustration {
+            flex: 1;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00C3FF"><path d="M12 2L2 22h20L12 2z"/></svg>') no-repeat center center;
+            background-size: contain;
+        }
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 40px 0;
+        }
+        .feature-grid .card {
+            flex: 1 1 calc(33.333% - 20px);
+            background: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(0,0,0,.05);
+            padding: 24px;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-grid .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+        }
+        .feature-grid .card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .feature-grid .card p {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        .pricing-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 40px 0;
+        }
+        .pricing-grid .card {
+            flex: 1 1 calc(33.333% - 20px);
+            background: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(0,0,0,.05);
+            padding: 24px;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .pricing-grid .card .accent-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: #00C3FF;
+        }
+        .pricing-grid .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+        }
+        .pricing-grid .card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .pricing-grid .card .price {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.25;
+            margin-top: 10px;
+        }
+        .pricing-grid .card ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .pricing-grid .card ul li {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .pricing-grid .card .cta {
+            display: inline-block;
+            background: #1A73E8;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+        .pricing-grid .card .cta:hover {
+            background: #FFC107;
+            color: #212121;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            background-color: #FFFFFF;
+            box-shadow: 0 -2px 8px rgba(0,0,0,.05);
+        }
+        .footer .social {
+            display: flex;
+            gap: 10px;
+        }
+        .footer .social a {
+            color: #212121;
+            text-decoration: none;
+            padding: 12px;
+            transition: color 0.3s;
+        }
+        .footer .social a:hover {
+            color: #1A73E8;
+        }
+        .footer .legal {
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.4;
+            color: #616161;
+        }
+        .footer .legal a {
+            color: #1A73E8;
+            text-decoration: none;
+        }
+        .footer .legal a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 1199px) {
+            .hero .text {
+                flex: 1 1 75%;
+            }
+            .hero .illustration {
+                flex: 1 1 25%;
+            }
+            .feature-grid .card, .pricing-grid .card {
+                flex: 1 1 calc(50% - 20px);
+            }
+        }
+        @media (max-width: 767px) {
+            .header .nav {
+                display: none;
+            }
+            .header .hamburger {
+                display: block;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero .text, .hero .illustration {
+                flex: 1 1 100%;
+                padding: 0;
+            }
+            .hero .illustration {
+                margin-top: 20px;
+            }
+            .feature-grid .card, .pricing-grid .card {
+                flex: 1 1 100%;
+            }
+            .cta {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">FinTech</div>
+            <nav class="nav">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#docs">Docs</a>
+                <a href="#signup" class="cta">Sign Up</a>
+            </nav>
+            <div class="hamburger" aria-label="Open menu" onclick="toggleMenu()">&#9776;</div>
+        </header>
+        <section class="hero">
+            <div class="text">
+                <h1>Manage Your Finances Effortlessly</h1>
+                <h2>Streamline your budgeting, track expenses, and save smarter.</h2>
+                <a href="#signup" class="cta" aria-label="Sign up now">Get Started</a>
+            </div>
+            <div class="illustration"></div>
+        </section>
+        <section class="feature-grid" id="features">
+            <div class="card" role="article">
+                <h3>Security</h3>
+                <p>Advanced encryption and secure login to protect your data.</p>
+            </div>
+            <div class="card" role="article">
+                <h3>Speed</h3>
+                <p>Instant transactions and real-time updates.</p>
+            </div>
+            <div class="card" role="article">
+                <h3>Analytics</h3>
+                <p>Detailed reports and insights to help you make informed decisions.</p>
+            </div>
+            <div class="card" role="article">
+                <h3>Support</h3>
+                <p>24/7 customer support via chat and email.</p>
+            </div>
+        </section>
+        <section class="pricing-grid" id="pricing">
+            <div class="card" role="article">
+                <div class="accent-bar"></div>
+                <h3>Basic</h3>
+                <div class="price">$9/month</div>
+                <ul>
+                    <li>Feature 1</li>
+                    <li>Feature 2</li>
+                    <li>Feature 3</li>
+                </ul>
+                <a href="#signup" class="cta">Sign Up</a>
+            </div>
+            <div class="card" role="article">
+                <div class="accent-bar"></div>
+                <h3>Pro</h3>
+                <div class="price">$29/month</div>
+                <ul>
+                    <li>Feature A</li>
+                    <li>Feature B</li>
+                    <li>Feature C</li>
+                </ul>
+                <a href="#signup" class="cta">Sign Up</a>
+            </div>
+            <div class="card" role="article">
+                <div class="accent-bar"></div>
+                <h3>Enterprise</h3>
+                <div class="price">$99/month (custom)</div>
+                <ul>
+                    <li>Custom 1</li>
+                    <li>Custom 2</li>
+                    <li>Custom 3</li>
+                </ul>
+                <a href="#signup" class="cta">Sign Up</a>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="social">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+            <div class="legal">
+                &copy; 2024 FinTech. All rights reserved. <a href="#">Privacy Policy</a>
+            </div>
+        </footer>
+    </div>
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.header .nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>
+```
