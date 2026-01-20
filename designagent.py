@@ -5,7 +5,7 @@ import json
 OPENROUTER_API_KEY = config.OPENROUTER_API_KEY
 api_url = "https://openrouter.ai/api/v1/chat/completions"
 
-def call_ai_api(messages, model="openai/gpt-oss-20b", temperature=0.7):
+def call_ai_api(messages, model="openai/gpt-oss-20b:free", temperature=0.7):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "HTTP-Referer": "https://alixer.io",

@@ -2,358 +2,806 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinTech Landing Page</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #F5F5F5;
-            color: #212121;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            background-color: #FFFFFF;
-            box-shadow: 0 2px 8px rgba(0,0,0,.05);
-        }
-        .header .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1A73E8;
-        }
-        .header .nav {
-            display: flex;
-            gap: 20px;
-        }
-        .header .nav a {
-            color: #212121;
-            text-decoration: none;
-            padding: 12px;
-            transition: color 0.3s;
-        }
-        .header .nav a:hover {
-            color: #1A73E8;
-        }
-        .header .hamburger {
-            display: none;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .header .hamburger:hover {
-            transform: rotate(45deg);
-        }
-        .hero {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            padding: 60px 0;
-            background-color: #FFFFFF;
-            box-shadow: 0 4px 16px rgba(0,0,0,.1);
-        }
-        .hero .text {
-            flex: 1;
-            padding-right: 20px;
-        }
-        .hero .text h1 {
-            font-size: 48px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-        .hero .text h2 {
-            font-size: 32px;
-            font-weight: 600;
-            line-height: 1.25;
-            margin-top: 10px;
-        }
-        .hero .text .cta {
-            display: inline-block;
-            margin-top: 20px;
-            background: #1A73E8;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #FFFFFF;
-            text-decoration: none;
-            transition: background 0.3s, color 0.3s;
-        }
-        .hero .text .cta:hover {
-            background: #FFC107;
-            color: #212121;
-        }
-        .hero .illustration {
-            flex: 1;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00C3FF"><path d="M12 2L2 22h20L12 2z"/></svg>') no-repeat center center;
-            background-size: contain;
-        }
-        .feature-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 40px 0;
-        }
-        .feature-grid .card {
-            flex: 1 1 calc(33.333% - 20px);
-            background: #FFFFFF;
-            box-shadow: 0 2px 8px rgba(0,0,0,.05);
-            padding: 24px;
-            border-radius: 8px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .feature-grid .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,.1);
-        }
-        .feature-grid .card h3 {
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        .feature-grid .card p {
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 1.5;
-        }
-        .pricing-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 40px 0;
-        }
-        .pricing-grid .card {
-            flex: 1 1 calc(33.333% - 20px);
-            background: #FFFFFF;
-            box-shadow: 0 2px 8px rgba(0,0,0,.05);
-            padding: 24px;
-            border-radius: 8px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-        }
-        .pricing-grid .card .accent-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: #00C3FF;
-        }
-        .pricing-grid .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,.1);
-        }
-        .pricing-grid .card h3 {
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        .pricing-grid .card .price {
-            font-size: 32px;
-            font-weight: 600;
-            line-height: 1.25;
-            margin-top: 10px;
-        }
-        .pricing-grid .card ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-        .pricing-grid .card ul li {
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-        .pricing-grid .card .cta {
-            display: inline-block;
-            background: #1A73E8;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #FFFFFF;
-            text-decoration: none;
-            transition: background 0.3s, color 0.3s;
-        }
-        .pricing-grid .card .cta:hover {
-            background: #FFC107;
-            color: #212121;
-        }
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            background-color: #FFFFFF;
-            box-shadow: 0 -2px 8px rgba(0,0,0,.05);
-        }
-        .footer .social {
-            display: flex;
-            gap: 10px;
-        }
-        .footer .social a {
-            color: #212121;
-            text-decoration: none;
-            padding: 12px;
-            transition: color 0.3s;
-        }
-        .footer .social a:hover {
-            color: #1A73E8;
-        }
-        .footer .legal {
-            font-size: 13px;
-            font-weight: 400;
-            line-height: 1.4;
-            color: #616161;
-        }
-        .footer .legal a {
-            color: #1A73E8;
-            text-decoration: none;
-        }
-        .footer .legal a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 1199px) {
-            .hero .text {
-                flex: 1 1 75%;
-            }
-            .hero .illustration {
-                flex: 1 1 25%;
-            }
-            .feature-grid .card, .pricing-grid .card {
-                flex: 1 1 calc(50% - 20px);
-            }
-        }
-        @media (max-width: 767px) {
-            .header .nav {
-                display: none;
-            }
-            .header .hamburger {
-                display: block;
-            }
-            .hero {
-                flex-direction: column;
-                text-align: center;
-            }
-            .hero .text, .hero .illustration {
-                flex: 1 1 100%;
-                padding: 0;
-            }
-            .hero .illustration {
-                margin-top: 20px;
-            }
-            .feature-grid .card, .pricing-grid .card {
-                flex: 1 1 100%;
-            }
-            .cta {
-                width: 100%;
-                text-align: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>EscapeRoom.com – Solve the Puzzle, Book the Room</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play a free escape‑room puzzle and book a real adventure. Can you escape before time runs out?">
+  <!-- CSS Variables & Base Styles -->
+  <style>
+    :root {
+      --color-primary: #0D1B2A;
+      --color-secondary: #FF9F1C;
+      --color-accent1: #E2E8F0;
+      --color-accent2: #2C3E50;
+      --color-alert: #C62828;
+      --color-success: #2E7D32;
+      --color-bg: #F5F5F5;
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
+      --border-radius: 0.5rem;
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.4s ease;
+      --shadow-sm: 0 2px 6px rgba(0,0,0,0.12);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.18);
+    }
+
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Open Sans', sans-serif;
+      color: var(--color-accent1);
+      background: var(--color-bg);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    button {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Typography */
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-accent1);
+    }
+    .tagline {
+      font-size: 24px;
+      margin-top: var(--spacing-sm);
+    }
+    .btn {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--border-radius);
+      transition: var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-primary {
+      background: var(--color-secondary);
+      color: var(--color-primary);
+    }
+    .btn-primary:hover, .btn-primary:focus {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--color-secondary);
+      color: var(--color-secondary);
+    }
+    .btn-secondary:hover, .btn-secondary:focus {
+      background: var(--color-secondary);
+      color: var(--color-primary);
+    }
+
+    /* Layout */
+    .wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--color-accent1);
+      background: linear-gradient(to bottom, rgba(13,27,42,0.7), rgba(13,27,42,0.7)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><rect width="1600" height="900" fill="%231a1a1a"/><path d="M440 400c-80-80-160-80-240 0-80 80-80 160 0 240 80 80 160 80 240 0 80-80 80-160 0-240zm720 0c-80-80-160-80-240 0-80 80-80 160 0 240 80 80 160 80 240 0 80-80 80-160 0-240z" fill="%23333" opacity="0.3"/><circle cx="800" cy="450" r="100" fill="%23555" opacity="0.2"/></svg>') no-repeat center/cover;
+      overflow: hidden;
+    }
+    .hero-content {
+      z-index: 2;
+      position: relative;
+      max-width: 800px;
+      padding: var(--spacing-lg);
+    }
+    .hero-buttons {
+      margin-top: var(--spacing-lg);
+      display: flex;
+      gap: var(--spacing-md);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Game Wrapper */
+    .game-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--color-primary);
+      z-index: 1000;
+      display: none;
+    }
+    .game-wrapper.active {
+      display: flex;
+    }
+    .game-sidebar {
+      width: 260px;
+      background: rgba(44,62,80,0.95);
+      padding: var(--spacing-md);
+      overflow-y: auto;
+      transform: translateX(-100%);
+      transition: transform var(--transition-normal);
+    }
+    .game-sidebar.open {
+      transform: translateX(0);
+    }
+    .game-canvas {
+      flex: 1;
+      position: relative;
+    }
+    .game-canvas canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #111;
+    }
+
+    /* HUD */
+    .hud {
+      position: absolute;
+      top: var(--spacing-md);
+      left: var(--spacing-md);
+      right: var(--spacing-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .hud-left, .hud-right {
+      display: flex;
+      gap: var(--spacing-sm);
+      pointer-events: auto;
+    }
+    .hud-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: var(--color-accent1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      pointer-events: auto;
+    }
+    .hud-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.1);
+    }
+    .hud-timer {
+      background: rgba(240,80,80,0.8);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--border-radius);
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      pointer-events: auto;
+    }
+    .hud-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
+    .hud-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--color-secondary);
+      transition: width var(--transition-normal);
+    }
+
+    /* Puzzle Prompt */
+    .puzzle-prompt {
+      position: absolute;
+      bottom: var(--spacing-lg);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(13,27,42,0.92);
+      padding: var(--spacing-lg);
+      border-radius: var(--border-radius);
+      max-width: 560px;
+      width: 90%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+    }
+    .puzzle-prompt.active {
+      opacity: 1;
+    }
+    .puzzle-input {
+      margin-top: var(--spacing-md);
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+    .puzzle-input input {
+      flex: 1;
+      padding: var(--spacing-sm);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--border-radius);
+      color: var(--color-accent1);
+      font-family: 'Courier New', monospace;
+    }
+    .puzzle-input input:focus {
+      outline: 2px solid var(--color-secondary);
+      border-color: var(--color-secondary);
+    }
+    .puzzle-submit {
+      background: var(--color-secondary);
+      color: var(--color-primary);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--border-radius);
+      font-weight: 600;
+    }
+
+    /* Inventory List */
+    .inventory-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+    .inventory-item {
+      padding: var(--spacing-sm);
+      background: rgba(255,255,255,0.07);
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .inventory-item:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Success Screen */
+    .success-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(46,125,50,0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      z-index: 20;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition-normal);
+    }
+    .success-screen.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .success-screen h2 {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+    }
+    .success-screen .confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Booking CTA (sticky) */
+    .booking-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-primary);
+      padding: var(--spacing-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-md);
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      transform: translateY(100%);
+      transition: transform var(--transition-normal);
+    }
+    .booking-cta.active {
+      transform: translateY(0);
+    }
+    .booking-cta .rating {
+      color: #FFD700;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--color-primary);
+      padding: var(--spacing-lg);
+      text-align: center;
+      margin-top: auto;
+    }
+    footer a {
+      color: var(--color-secondary);
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1001;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition-normal);
+    }
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content {
+      background: white;
+      color: #333;
+      padding: var(--spacing-lg);
+      border-radius: var(--border-radius);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+    .modal-content h2 {
+      color: var(--color-accent2);
+    }
+    .modal-close {
+      position: absolute;
+      top: var(--spacing-sm);
+      right: var(--spacing-sm);
+      background: none;
+      color: #999;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Animation Helpers */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 36px;
+      }
+      .tagline {
+        font-size: 18px;
+      }
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      .game-sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 5;
+      }
+      .hud {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+      }
+      .hud-left, .hud-right {
+        width: 100%;
+        justify-content: center;
+      }
+      .puzzle-prompt {
+        bottom: var(--spacing-sm);
+        left: var(--spacing-sm);
+        right: var(--spacing-sm);
+        transform: none;
+        width: auto;
+      }
+      .success-screen h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo">FinTech</div>
-            <nav class="nav">
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#docs">Docs</a>
-                <a href="#signup" class="cta">Sign Up</a>
-            </nav>
-            <div class="hamburger" aria-label="Open menu" onclick="toggleMenu()">&#9776;</div>
-        </header>
-        <section class="hero">
-            <div class="text">
-                <h1>Manage Your Finances Effortlessly</h1>
-                <h2>Streamline your budgeting, track expenses, and save smarter.</h2>
-                <a href="#signup" class="cta" aria-label="Sign up now">Get Started</a>
-            </div>
-            <div class="illustration"></div>
-        </section>
-        <section class="feature-grid" id="features">
-            <div class="card" role="article">
-                <h3>Security</h3>
-                <p>Advanced encryption and secure login to protect your data.</p>
-            </div>
-            <div class="card" role="article">
-                <h3>Speed</h3>
-                <p>Instant transactions and real-time updates.</p>
-            </div>
-            <div class="card" role="article">
-                <h3>Analytics</h3>
-                <p>Detailed reports and insights to help you make informed decisions.</p>
-            </div>
-            <div class="card" role="article">
-                <h3>Support</h3>
-                <p>24/7 customer support via chat and email.</p>
-            </div>
-        </section>
-        <section class="pricing-grid" id="pricing">
-            <div class="card" role="article">
-                <div class="accent-bar"></div>
-                <h3>Basic</h3>
-                <div class="price">$9/month</div>
-                <ul>
-                    <li>Feature 1</li>
-                    <li>Feature 2</li>
-                    <li>Feature 3</li>
-                </ul>
-                <a href="#signup" class="cta">Sign Up</a>
-            </div>
-            <div class="card" role="article">
-                <div class="accent-bar"></div>
-                <h3>Pro</h3>
-                <div class="price">$29/month</div>
-                <ul>
-                    <li>Feature A</li>
-                    <li>Feature B</li>
-                    <li>Feature C</li>
-                </ul>
-                <a href="#signup" class="cta">Sign Up</a>
-            </div>
-            <div class="card" role="article">
-                <div class="accent-bar"></div>
-                <h3>Enterprise</h3>
-                <div class="price">$99/month (custom)</div>
-                <ul>
-                    <li>Custom 1</li>
-                    <li>Custom 2</li>
-                    <li>Custom 3</li>
-                </ul>
-                <a href="#signup" class="cta">Sign Up</a>
-            </div>
-        </section>
-        <footer class="footer">
-            <div class="social">
-                <a href="#">Facebook</a>
-                <a href="#">Twitter</a>
-                <a href="#">LinkedIn</a>
-            </div>
-            <div class="legal">
-                &copy; 2024 FinTech. All rights reserved. <a href="#">Privacy Policy</a>
-            </div>
-        </footer>
+
+<div class="wrapper">
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1>Trapped in the Library</h1>
+      <p class="tagline">Solve the riddles, escape before time runs out.</p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" id="playBtn">Play Now</button>
+        <a href="/book" class="btn btn-secondary">Book Now</a>
+      </div>
     </div>
-    <script>
-        function toggleMenu() {
-            const nav = document.querySelector('.header .nav');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+  </section>
+
+  <!-- Game Wrapper (hidden by default) -->
+  <div class="game-wrapper" id="gameWrapper">
+    <aside class="game-sidebar" id="gameSidebar">
+      <h3>Inventory</h3>
+      <div class="inventory-list" id="inventoryList">
+        <!-- Filled by JS -->
+      </div>
+    </aside>
+    <div class="game-canvas">
+      <canvas id="game" width="800" height="600"></canvas>
+      <!-- HUD -->
+      <div class="hud">
+        <div class="hud-left">
+          <button class="hud-btn" id="inventoryBtn" aria-label="Open Inventory">🎒</button>
+          <button class="hud-btn" id="menuBtn" aria-label="Menu">☰</button>
+        </div>
+        <div class="hud-right">
+          <div class="hud-timer" id="timer">10:00</div>
+        </div>
+        <div class="hud-progress">
+          <div class="hud-progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+      <!-- Puzzle Prompt -->
+      <div class="puzzle-prompt" id="puzzlePrompt">
+        <p>Find the hidden key behind the bookshelf.</p>
+        <div class="puzzle-input">
+          <input type="text" id="puzzleInput" placeholder="Enter code…" maxlength="6">
+          <button class="puzzle-submit" id="puzzleSubmit">Submit</button>
+        </div>
+      </div>
+      <!-- Success Screen -->
+      <div class="success-screen" id="successScreen">
+        <div class="confetti" id="confetti"></div>
+        <h2>You’re Free!</h2>
+        <p>Congratulations, you solved all the puzzles and escaped!</p>
+        <a href="/book" class="btn btn-primary" style="margin-top:1rem;">Book a Real Room</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking CTA (sticky) -->
+  <div class="booking-cta" id="bookingCta">
+    <span>⭐ 4.9/5 (250+ reviews)</span>
+    <span>From $29 per person</span>
+    <a href="/book" class="btn btn-secondary">Book Now</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 EscapeRoom.com • <a href="/privacy">Privacy</a> • <a href="/contact">Contact</a></p>
+    <p>Designed for adventure seekers. Play fair, have fun.</p>
+  </footer>
+</div>
+
+<!-- Instruction Modal -->
+<div class="modal" id="instructionModal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeInstruction">×</button>
+    <h2>Welcome, Adventurer</h2>
+    <p>Look around using your mouse or finger. Click objects to investigate, drag items to use them, and solve puzzles to escape.</p>
+    <p>Your inventory appears on the left. A timer counts down – stay sharp!</p>
+    <button class="btn btn-primary" id="gotItBtn">Got it!</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    'use strict';
+
+    // ---------- DOM References ----------
+    const hero = document.getElementById('hero');
+    const playBtn = document.getElementById('playBtn');
+    const gameWrapper = document.getElementById('gameWrapper');
+    const gameSidebar = document.getElementById('gameSidebar');
+    const inventoryBtn = document.getElementById('inventoryBtn');
+    const menuBtn = document.getElementById('menuBtn');
+    const inventoryList = document.getElementById('inventoryList');
+    const timerEl = document.getElementById('timer');
+    const progressBar = document.getElementById('progressBar');
+    const puzzlePrompt = document.getElementById('puzzlePrompt');
+    const puzzleInput = document.getElementById('puzzleInput');
+    const puzzleSubmit = document.getElementById('puzzleSubmit');
+    const successScreen = document.getElementById('successScreen');
+    const bookingCta = document.getElementById('bookingCta');
+    const instructionModal = document.getElementById('instructionModal');
+    const closeInstruction = document.getElementById('closeInstruction');
+    const gotItBtn = document.getElementById('gotItBtn');
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    const confettiEl = document.getElementById('confetti');
+
+    // ---------- State ----------
+    let gameActive = false;
+    let timeLeft = 10 * 60; // 10 minutes in seconds
+    let timerInterval;
+    let currentPuzzle = 0;
+    const puzzles = [
+      { code: 'BOOK', hint: 'Find the hidden key behind the bookshelf.' },
+      { code: 'KEY1', hint: 'Unlock the drawer with the key you found.' },
+      { code: 'EXIT', hint: 'Enter the exit code to open the door.' }
+    ];
+    const inventory = [];
+
+    // ---------- Utilities ----------
+    function on(el, type, fn) {
+      if (!el) return;
+      el.addEventListener(type, fn);
+    }
+    function qs(selector, parent = document) {
+      return parent.querySelector(selector);
+    }
+    function show(el) {
+      el.style.display = 'block';
+    }
+    function hide(el) {
+      el.style.display = 'none';
+    }
+    function clamp(num, min, max) {
+      return Math.min(Math.max(num, min), max);
+    }
+
+    // ---------- Responsive Canvas ----------
+    function resizeCanvas() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      if (gameActive) renderScene();
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // ---------- Simple First‑Person Render (demo) ----------
+    function renderScene() {
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.fillStyle = '#111';
+      ctx.fillRect(0, 0, w, h);
+      // Simple “wall” with a door
+      ctx.fillStyle = '#333';
+      ctx.fillRect(0, 0, w, h/2);
+      ctx.fillStyle = '#555';
+      ctx.fillRect(0, h/2, w, h/2);
+      // Door in the center
+      ctx.fillStyle = '#2C3E50';
+      const doorX = w/2 - 60;
+      const doorY = h/2 - 80;
+      ctx.fillRect(doorX, doorY, 120, 160);
+      // Add a “handle” if puzzle not solved
+      if (currentPuzzle < puzzles.length) {
+        ctx.fillStyle = '#E2E8F0';
+        ctx.beginPath();
+        ctx.arc(doorX + 60, doorY + 80, 8, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    // ---------- Game Logic ----------
+    function startGame() {
+      gameActive = true;
+      hero.style.display = 'none';
+      gameWrapper.classList.add('active');
+      instructionModal.classList.add('active');
+      resetTimer();
+      currentPuzzle = 0;
+      updateProgress();
+      renderScene();
+    }
+    function resetTimer() {
+      timeLeft = 10 * 60;
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+        const secs = String(timeLeft % 60).padStart(2, '0');
+        timerEl.textContent = `${mins}:${secs}`;
+        if (timeLeft <= 0) {
+          endGame(false);
         }
-    </script>
+      }, 1000);
+    }
+    function endGame(won = false) {
+      clearInterval(timerInterval);
+      gameActive = false;
+      if (won) {
+        successScreen.classList.add('active');
+        spawnConfetti();
+        // Show booking CTA after 2s
+        setTimeout(() => {
+          bookingCta.classList.add('active');
+        }, 2000);
+      } else {
+        alert('Time’s up! Try again?');
+        location.reload();
+      }
+    }
+    function nextPuzzle() {
+      currentPuzzle++;
+      if (currentPuzzle >= puzzles.length) {
+        endGame(true);
+        return;
+      }
+      puzzlePrompt.querySelector('p').textContent = puzzles[currentPuzzle].hint;
+      puzzleInput.value = '';
+      updateProgress();
+    }
+    function updateProgress() {
+      const progress = ((currentPuzzle) / puzzles.length) * 100;
+      progressBar.style.width = `${progress}%`;
+    }
+    function openInventory() {
+      gameSidebar.classList.add('open');
+    }
+    function closeInventory() {
+      gameSidebar.classList.remove('open');
+    }
+    function spawnConfetti() {
+      const count = 100;
+      const colors = ['#FF9F1C', '#2E7D32', '#E2E8F0', '#C62828'];
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('div');
+        dot.style.position = 'absolute';
+        dot.style.width = '6px';
+        dot.style.height = '6px';
+        dot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        dot.style.borderRadius = '50%';
+        dot.style.pointerEvents = 'none';
+        dot.style.left = `${Math.random() * 100}%`;
+        dot.style.top = `${Math.random() * 100}%`;
+        dot.style.transform = `scale(${Math.random() * 1.5})`;
+        dot.style.animation = 'fall 3s ease-out forwards';
+        confettiEl.appendChild(dot);
+        setTimeout(() => dot.remove(), 3000);
+      }
+    }
+
+    // ---------- Event Listeners ----------
+    on(playBtn, 'click', startGame);
+    on(inventoryBtn, 'click', openInventory);
+    on(menuBtn, 'click', () => {
+      if (confirm('Pause game?')) {
+        clearInterval(timerInterval);
+      } else {
+        resetTimer();
+      }
+    });
+    // Close inventory when clicking outside on mobile
+    on(gameWrapper, 'click', (e) => {
+      if (!gameSidebar.contains(e.target) && !inventoryBtn.contains(e.target)) {
+        closeInventory();
+      }
+    });
+    // Puzzle submit
+    on(puzzleSubmit, 'click', () => {
+      const val = puzzleInput.value.toUpperCase().trim();
+      if (val === puzzles[currentPuzzle].code) {
+        alert('Correct! You solved the puzzle.');
+        inventory.push(puzzles[currentPuzzle].hint);
+        const item = document.createElement('div');
+        item.className = 'inventory-item';
+        item.textContent = puzzles[currentPuzzle].hint;
+        inventoryList.appendChild(item);
+        nextPuzzle();
+        puzzlePrompt.classList.remove('active');
+      } else {
+        alert('Wrong code. Try again.');
+      }
+    });
+    // Enter key in input
+    on(puzzleInput, 'keydown', (e) => {
+      if (e.key === 'Enter') puzzleSubmit.click();
+    });
+    // Show puzzle prompt after a short delay
+    setTimeout(() => {
+      if (gameActive) puzzlePrompt.classList.add('active');
+    }, 1500);
+
+    // Instruction modal
+    on(closeInstruction, 'click', () => {
+      instructionModal.classList.remove('active');
+      puzzlePrompt.classList.add('active');
+    });
+    on(gotItBtn, 'click', () => {
+      instructionModal.classList.remove('active');
+      puzzlePrompt.classList.add('active');
+    });
+
+    // Keyboard shortcuts
+    on(document, 'keydown', (e) => {
+      if (!gameActive) return;
+      if (e.key === 'Escape') closeInventory();
+      if (e.key === 'i' || e.key === 'I') {
+        e.preventDefault();
+        if (gameSidebar.classList.contains('open')) {
+          closeInventory();
+        } else {
+          openInventory();
+        }
+      }
+    });
+
+    // Accessibility focus trap for modal (simplified)
+    const focusable = qs('#instructionModal .modal-content').querySelectorAll('button, a, input');
+    const firstFocus = focusable[0];
+    const lastFocus = focusable[focusable.length - 1];
+    on(instructionModal, 'keydown', (e) => {
+      if (e.key === 'Tab') {
+        if (e.shiftKey && document.activeElement === firstFocus) {
+          e.preventDefault();
+          lastFocus.focus();
+        } else if (!e.shiftKey && document.activeElement === lastFocus) {
+          e.preventDefault();
+          firstFocus.focus();
+        }
+      }
+    });
+
+    // Add simple animation for confetti
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+  })();
+</script>
 </body>
 </html>
 ```

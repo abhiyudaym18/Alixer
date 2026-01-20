@@ -7,7 +7,7 @@ OPENROUTER_API_KEY = config.OPENROUTER_API_KEY
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 
-def call_ai_api(messages, model="qwen/qwen-2.5-coder-32b-instruct:free", temperature=0.2):
+def call_ai_api(messages, model="kwaipilot/kat-coder-pro:free", temperature=0.2):
     """Call the OpenRouter API and return (content, error)."""
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
